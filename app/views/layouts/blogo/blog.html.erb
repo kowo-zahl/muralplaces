@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= @meta[:title] %></title>
+		<meta charset="UTF-8">
+
+		<%= #render partial: 'blogo/shared/meta'
+		 %>
+
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag "blogo/blog"  %>
+
+		<!-- css -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+
+
+
+
+
+		 <%= auto_discovery_link_tag :atom, blogo_feed_path %>
+	<!--	 #render 'blogo/shared/google_analytics'-->
+
+		</head>
+		<body>
+		<div id="container">
+			
+	<!--		
+		<header class="blogo-header">
+		<div class='header-titles'>
+		<div class="animatedParent animateOnce">
+		<div class="animated fadeIn slowest">
+		
+		</div>
+		</div>
+		<h1> <%= link_to Blogo.config.site_title,root_url %></h1>
+		<h2><%= Blogo.config.site_subtitle %></h2>
+		</div>
+	
+		<div class='header-icons'>
+			<%= render partial: 'blogo/shared/social_icons' %>
+		</div>
+</header>
+-->			<div class="stripe">
+				<%= image_tag "header.png"%>
+			</div>
+			<%= render "layouts/navigation" %>
+			<%= render "layouts/modal"%>
+
+		<div id="content">
+			<div class="pure-g-r">
+				<div class="pure-u-3-4">
+					<%= yield %>
+				</div>
+				<div class="pure-u-1-4">
+					<%= render partial: 'blogo/shared/aside' %>
+				</div>
+			</div>
+
+		</div>
+		</div>
+		</body>
+
+</html>

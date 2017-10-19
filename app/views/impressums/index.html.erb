@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row">
+		<% @impressums.each do |impressum| %>
+			<div class="well" id="<%= impressum.position%>">
+				<% if can? :edit, @impressums %>
+					<%= link_to "", upi_impressum_path(impressum), method: :put,:class=>"glyphicon glyphicon-arrow-up"%>
+					<%= link_to "", downi_impressum_path(impressum), method: :put,:class=>"glyphicon glyphicon-arrow-down" %>
+				<%end %>
+				<%= raw(impressum.text)%>
+				<% if can? :edit, @impressums %>
+					<%= link_to I18n.t('edit'), edit_impressum_path(impressum),remote: true,:class=>"btn btn-primary" %>
+					<%= link_to I18n.t('destroy'), impressum, method: :delete, data: { confirm: 'Sind Sie sicher?' },:class=>"btn btn-primary" %>
+				<%end%>
+			</div>
+		<%end%>
+		<div id="new">
+		</div>
+	</div>
+	<% if can? :edit, @impressums %>
+		<%= link_to I18n.t('neuereintrag'), new_impressum_path,remote: true,:class=>"btn btn-primary" %>
+	<%end%>
+</div>
+

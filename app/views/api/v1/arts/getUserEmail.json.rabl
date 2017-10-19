@@ -1,0 +1,3 @@
+object @usr
+
+attributes :email

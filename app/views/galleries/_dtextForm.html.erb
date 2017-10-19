@@ -1,0 +1,5 @@
+<%= simple_form_for(@gallery) do |f| %>
+	<%= f.error_notification %>
+	<%= f.input :dtext, label: false , as: :text %>
+	<%= f.button :submit %>
+<% end %>

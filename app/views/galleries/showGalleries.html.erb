@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+
+<h1>Sammlungen</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>thumb</th>
+      <th>Veröffentlicht</th>
+      <th>Bilderanzahl</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @galleries.each do |gallery| %>
+      <tr>
+        <td><%= link_to (image_tag gallery.thumbUrl),gallery %></td>
+        <td><%= gallery.show ? "Ja":"Nein" %></td>
+        <td><%= gallery.art_ids.count %></td>
+        <td><%= link_to I18n.t('show'), gallery %></td>
+        <td><%= link_to I18n.t('destroy'), gallery, method: :delete, data: { confirm: I18n.t('sure') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>bla
+
+<%= link_to I18n.t('newGallery'), new_gallery_path %>
+</div></div>
+<%= will_paginate @galleries %>

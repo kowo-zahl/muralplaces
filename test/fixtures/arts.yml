@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+art1: 
+  id: 1
+  uploader: 1
+  name: nameOfArt
+  country: countryOfArt
+  city: cityOfArt
+  state: stateOfArt
+  lat: 51.12345678
+  lng: 13.12345678
+  image_uid: <%= Dragonfly.app.fetch_file(Rails.root.to_s+"/test/fixtures/image/test1.jpg").store %>
+#  fixture_file_upload
+art2: 
+  id: 2
+  uploader: 1
+  name: nameOfArt2
+  country: countryOfArt2
+  city: cityOfArt2
+  state: stateOfArt2
+  lat: 51.12345678
+  lng: 13.12345678
+  image_uid: <%= Dragonfly.app.fetch_file(Rails.root.to_s+"/test/fixtures/image/test2.jpg").store %>

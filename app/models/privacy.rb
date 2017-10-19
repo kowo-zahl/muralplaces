@@ -1,0 +1,2 @@
+class Privacy < Position
+end

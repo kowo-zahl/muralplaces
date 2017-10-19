@@ -1,0 +1,6 @@
+<%= simple_form_for(@art) do |f| %>
+<%= f.error_notification %>
+    <%= f.text_field :lng, id: 'art_lng2' %>
+    <%= f.text_field :lat, id: 'art_lat2' %>
+	<%= f.button :submit %>
+<% end %>

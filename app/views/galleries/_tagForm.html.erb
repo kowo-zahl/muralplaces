@@ -1,0 +1,6 @@
+<%= simple_form_for(@gallery) do |f| %>
+<%= f.error_notification %>
+<%= f.label :tag_list, I18n.t('tagsform') %>
+<%= f.input :tag_list, input_html: {value: @gallery.tag_list.to_s}, label: false %>
+<%= f.button :submit %>
+<% end %>

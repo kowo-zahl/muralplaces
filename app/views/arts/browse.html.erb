@@ -1,0 +1,67 @@
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-5 ">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-1">
+									Like:
+								</div>
+								<div class="col-md-1" id="like"></div>
+	
+								<div id="title" class="col-md-2 col-md-offset-1"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">
+									Dislike:
+								</div>
+								<div class="col-md-1" id="dislike"></div>
+								<div class="col-md-1 ">
+									Herkunft:
+								</div>
+								<div id="country" class="col-md-2 col-md-offset-1"></div>
+								<div id="city" class="col-md-2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div>
+							<%= link_to 'Nächstes', '#',
+							:onclick => 'nextPic(picData)',:class => "right btn btn-default" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-md-8">
+				<img src="" class="picshow schatten well">
+			</div>
+			<div class="col-md-4">
+				<div id="map" class="" ></div>
+				<div class="next"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+
+		<div id="like"></div>
+		<div id="dislike"></div>
+
+	<!--	<div id="comments"></div> -->
+	</div>
+</div>
+<%if user_signed_in?%>
+<script type="text/javascript">
+		window.currentUser = {
+	id : <%= current_user.id%>
+		};
+</script>
+<%end%>
+<!-- <script src="<%= root_path+'js/comments.js'%>"></script> -->
+<script src="<%= root_path+'js/arts.js'%>"></script>

@@ -1,0 +1,1 @@
+(function(){var e;$.fn.titleToUrl=function(t){var n,i;return n=$(this),i=$(t),n.on("input",function(){var t;return t=e(n.val()),i.val(t)})},e=function(e){var t;return t=e.toLowerCase(),t=t.replace("'",""),t=t.replace(/[^a-z0-9]/g," "),t=t.replace(/^\s+|\s+$|/g,""),t=t.replace(/\s+/g,"-")}}).call(this);

@@ -1,0 +1,76 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 well">
+			<%= simple_form_for(@art) do |f| %>
+			<% if @art.errors.any? %>
+			<div id="error_explanation">
+
+				<ul>
+					<% @art.errors.full_messages.each do |message| %>
+					<li>
+						<%= message %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<div class="field">
+				<%= f.file_field :image %>
+			</div>
+
+
+			<%= f.hidden_field :uploader,:value => current_user.id %>
+			<div id="notfound"></div>
+			<div id="hideme">
+			<!--				<div class="field">
+				<%= f.label :name %>
+				<br>
+				<%= f.text_field :name %>
+			</div> -->
+				<div class="field">
+					<%= f.label :lat %>
+					<br>
+					<%= f.text_field :lat %>
+				</div>
+				<div class="field">
+					<%= f.label :lng %>
+					<br>
+					<%= f.text_field :lng %>
+				</div>
+				<div class="field">
+					<%= f.label :country %>
+					<br>
+					<%= f.text_field :country %>
+				</div>
+				<div class="field">
+					<%= f.label :city %>
+					<br>
+					<%= f.text_field :city %>
+				</div>
+				<div class="field">
+					<%= f.label :state %>
+					<br>
+					<%= f.text_field :state %>
+				</div>
+			</div>
+			<%= f.hidden_field :retained_image %>
+			<div class="actions">
+				<%= f.submit %>
+			</div>
+			<% end %>
+		</div>
+		<div class="col-md-6">
+		<div id="holdRight">
+			<div id="mapu2" class="showSmall schatten"></div>
+			<span id="imagediv">
+				
+			</span>
+		</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('#hideme').hide();
+	artUpload.initalMap();
+	artUpload.addOnChange(); 
+</script>

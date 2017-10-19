@@ -1,0 +1,22 @@
+<% if Blogo.config.disqus_shortname %>
+  <section id='disqus-comments'>
+    <h1><%= t('blogo.user.comments') %></h1>
+    <div id="disqus_thread" aria-live="polite"></div>
+    <noscript><%= t('blogo.user.please_enable_javascript') %></noscript>
+  </section>
+
+
+  <script type="text/javascript">
+    var disqus_shortname  = '<%= Blogo.config.disqus_shortname %>';
+    var disqus_identifier = 'blog-post-<%= @post.id %>';
+    var disqus_url        = '<%= blogo_post_url(@post) %>';
+    var disqus_title      = '<%= @post.title %>';
+    var disqus_script     = 'embed.js';
+
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+  </script>
+<% end %>

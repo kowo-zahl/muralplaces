@@ -1,0 +1,120 @@
+
+<div class="container" id="kachel">
+		<div class="row">
+
+		<h1>Hochgeladene Bilder</h1>
+	</div>
+	Ansicht <a class="pointer" onclick="kacheln();" id="link_kachel" style="color:grey;">Kacheln</a><a id="link_tabelle" class="pointer" onclick="tabelle()">Tabelle</a>
+	
+	
+	<% @arts.each_with_index do |art,index| %>
+	
+		<% if index % 4 == 0 %>
+		<div class="row">
+			<div class="col-md-1">
+				<p></p>
+			</div>
+		<% end %>
+			<div class="col-md-2 well imgWrap">
+				<%= link_to (image_tag art.image.thumb('100x50').url),art  unless art.image.nil? %>
+			</div>
+		<% if index % 4 == 3 %>
+
+			<div class="col-md-1">
+				<p></p>
+			</div>
+		</div>
+		<% end %>
+	<% end %>
+
+	<% if @arts.length % 4 != 3 %>
+
+	<div class="col-md-1">
+		<p></p>
+	</div>
+
+
+	<% end %>
+	</div>
+</div>
+
+<div class="container" id="tabelle" style="display:none;">
+	<div class="row">
+
+		<h1>Hochgeladene Bilder</h1>
+	</div>
+	Ansicht <a class="pointer" onclick="kacheln();" id="link_kachel" style="color:rgb(51, 122, 183);">Kacheln</a><a id="link_tabelle" class="pointer" onclick="tabelle()" style="color:grey;">Tabelle</a>
+	<div class="row">
+		<div class="col-md-2">
+			Thumbnail
+		</div>
+		<div class="col-md-2">
+			Titel
+		</div>
+		<div class="col-md-2">
+			Veröffentlicht?
+		</div>
+		<div class="col-md-2">
+			Country
+		</div>
+		<div class="col-md-2">
+			Stadt
+		</div>
+
+		<div class="col-md-2"></div>
+	</div>
+
+	<% @arts.each do |art| %>
+	<div class="row">
+		<div class="col-md-2">
+			<%= link_to (image_tag art.image.thumb('100x50').url),art  unless art.image.nil? %>
+		</div>
+		<div class="col-md-2">
+			<%= art.name %>
+		</div>
+		<div class="col-md-2">
+			<% if art.isInGallery? %>
+			Ja
+			<%else%>
+			 Nein
+			 <%end%>
+		</div>
+		<div class="col-md-2">
+			<%= art.country %>
+		</div>
+		<div class="col-md-2">
+			<%= art.city %>
+		</div>
+		<div class="col-md-2">
+			<%= link_to 'Anzeigen', art %>
+
+			<%= link_to 'Löschen', art, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
+		</div>
+
+	</div>
+	<% end %>
+
+
+</div>
+
+
+<div class="container">
+	<%= will_paginate @arts %>
+		
+</div>
+
+
+	<script>
+	function kacheln(){
+		document.getElementById("kachel").style.display = "block";
+		document.getElementById("tabelle").style.display = "none";
+		document.getElementById("link_kachel").style.color = "grey";
+		document.getElementById("link_tabelle").style.color = "#337ab7";
+	}
+	function tabelle(){
+		document.getElementById("kachel").style.display = "none";
+		document.getElementById("tabelle").style.display = "block";
+		document.getElementById("link_kachel").style.color = "#337ab7";
+		document.getElementById("link_tabelle").style.color = "grey";
+	}
+	</script>

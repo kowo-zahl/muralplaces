@@ -1,0 +1,86 @@
+<div class="col-sm-2">
+	<p>
+<!--		<% @cities.each do |city|%>
+		<div class="cityEntry">
+			<%= link_to city.to_s==""?"Ohne Angabe":city, :controller => 'galleries',:action => "maps", :city => city.to_s==""?"oa":city.to_s %><br />
+		</div>
+		<%end%>
+	</p>-->
+</div>
+	
+<div class="col-sm-10 flex-container column">
+<div id="mapallb" class="mapb" style="width: 100%; height: 300px">
+	
+	</div>
+</div>
+<br />
+
+
+<div class="clearfix"></div>
+
+
+
+
+
+</div>
+
+<script>
+	var host = "http://" + window.location.host;
+	
+	//benötigt devise wenn wir angemeldet sind
+jQuery.ajaxSetup({
+	'beforeSend' : function(xhr) {
+		var token = $("meta[name='csrf-token']").attr("content");
+		xhr.setRequestHeader("X-CSRF-Token", token);
+	}
+});
+	
+	
+	
+	
+	
+	
+$(document).ready(function() {
+
+	var mapallb = L.map('mapallb').setView([51.051956, 13.741568],13);
+	
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(mapallb);
+
+	
+	<% @galleries.each_with_index do |gallery,index| %>	
+
+<% gallery.arts.each_with_index do |art,index| %>
+var markerall<%= index %> = L.marker([<%= art.lat.to_s %>, <%= art.lng.to_s %>]).addTo(mapallb);
+markerall<%= index %>.bindPopup("Loding..");
+markerall<%= index %>.on('click', function(e){
+	getUrl(e,<%= art.id %>,<%= index %>,"<%= url_for(art)%>");
+
+});
+
+<%end%>
+	
+	<%end%>	
+
+});
+
+//holt uns alle Art Daten und started die Picture Function und die Thumb Funktion
+function getUrl(e,number,index,url) {
+	console.log(e);
+	var popup = e.target.getPopup();
+	$.when($.getJSON(host + "/api/thumb/" + number)).done(function(data) {
+console.log(data);
+	
+	popup.setContent( "<a href='"+url+"'><img src='"+host+data.art.getThumbUrl+"' style='width: 50px;'></a>" );
+    popup.update();
+
+
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(jqXHR);
+		console.log(textStatus);
+		console.log(errorThrown);
+	});
+
+};
+</script>

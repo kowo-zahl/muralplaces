@@ -1,0 +1,3 @@
+object @art
+
+attributes :getThumbUrl

@@ -1,0 +1,181 @@
+<div class="container">
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active" id="pbild">
+			<a href="#" onclick="bild()">Home</a>
+		</li>
+		<li role="presentation" id="ppmap">
+			<a href="#"onclick="pmap()">Lage</a>
+		</li>
+	</ul>
+
+	<div id="bild">
+		<div class="col-md-7 col-md-1-offset">
+			<%= image_tag @art.image.thumb('800x600').url unless @art.image.nil? %>
+		</div>
+		<div class="col-md-4 padi">
+			<% if  @isUser %>
+				<div>
+					<div class="pointer btn btn-default">
+						<%= link_to "Bild ändern", edit_art_path(@art) %>
+					</div>
+					<% unless @art.lat.nil? || @art.lng.nil? %>
+						<div class="pointer btn btn-default">
+							<%= link_to "Bild veröffentlichen", :controller => 'static_pages',:action => "publishPicture" %>
+						</div>
+					<%end%>
+				</div>
+			<%end%>
+			<br />
+			<div>
+				<% if  @isUser %>
+					<%if @galleries.size > 0%>
+						<p>
+							Sammlung bearbeiten
+						</p>
+						<% @galleries.each do |gallery|%>
+						<p>
+							<% if gallery.title.to_s == ""%>
+								<%= link_to "Gallery Nummer: "+gallery.id.to_s,gallery %>
+							<%else%>
+								<%= link_to gallery.title, gallery %>
+							<%end%>
+						</p>
+						<%end%>
+					<%end%>
+				<%end%>
+
+				<% @galleries.each do |gal|%>
+					<% if gal.show == true%>
+						<p>
+							Bild ist in folgenden Sammlungen zu finden
+						</p>
+						<% @galleries.each do |gallery|%>
+						<p>
+							<% if gallery.title.to_s == ""%>
+								<%= link_to "Gallery Nummer: "+gallery.id.to_s,controller: "galleries",action: "browse", id: gallery.id %>
+							<%else%>
+								<%= link_to gallery.title, gallery %>
+							<%end%>
+						</p>
+						<%end%>
+					<%end%>
+				<%end%>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-md-12" id="pmap">
+
+		<!--
+		<p>
+		<strong>Name:</strong>
+		<span id="name">
+		<%= @art.name %>&nbsp;&nbsp;<span class="pointer" onclick="artShow.nameChance()">ändern?</span></span>
+		<div id="nameFormData" class="formData">
+		<%= render 'nameForm'%>
+		</div>
+		</p>
+
+		<p>
+		<strong>Country:</strong>
+		<%= @art.country %>
+		</p>
+
+		<p>
+		<strong>City:</strong>
+		<%= @art.city %>
+		</p>
+		-->
+
+		<div id="mapu" class="showSmall schatten"></div>
+		<div id="reset" style="display:none;" onclick="setM();" class="pointer">
+			Marker zurücksetzen
+		</div>
+		<p>
+			<% unless @art.lat.nil? || @art.lng.nil? %>
+				<strong>Latitude:</strong>
+
+				<%= @art.lat %>
+
+				<strong>Longitude:</strong>
+
+				<%= @art.lng %>
+				
+				<br />
+			<%end%>
+			<% if  @isUser %>
+				Zum Ändern der Positionsdaten einfach den Marker verschieben.
+			<%end%>
+		</p>
+
+		<div id="latlngFormData" class="formData">
+			<% if signed_in? && @art.uploader.to_i == current_user.id.to_i %>
+				<%= render 'latlngForm'%>
+			<% end%>
+		</div>
+
+		<div id="aenderungenuebernehmen" class="pointer" style="display:none;" onclick="artShow.lnglatMapChance()">
+			Änderungen übernehmen?
+		</div>
+
+	</div>
+	<br />
+
+	<br />
+
+	<%= link_to I18n.t('back'), arts_path %> |
+	<%= link_to I18n.t('destroy'), @art, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
+</div>
+<% if signed_in? && (current_user.has_role? :admin)%>
+<p>
+	<strong>Uploader:</strong>
+	<%= User.find(@art.uploader).username %>
+</p>
+<%end%>
+
+<script>
+<% if  @isUser %>
+var isUser = true;
+<%else%>
+var isUser = false;
+<%end%>
+
+
+<% if @art.lat.nil? || @art.lng.nil? %>
+	var lat = 51.052968330168405;
+	var lng = 13.733768463134767; 
+<%else%>
+	var lat =<%= @art.lat.to_s %>;
+	var lng =<%= @art.lng.to_s %>;
+	<%end%>
+	var artShow = new ArtShow(lat, lng);
+	//test.setMap(<%= @art.lat.to_s %>,<%= @art.lng.to_s%>,'<%= @art.name %>');
+	//artShow.setMap(<%= @art.lat.to_s %>,<%= @art.lng.to_s%>,'<%= @art.name %>');
+	function bild(){
+	$("#pmap").hide();
+	$("#bild").show();
+	$("#pbild").addClass( "active" );
+	$("#ppmap").removeClass( "active" )
+
+	}
+	function pmap(){
+	$("#bild").hide();
+	$("#pmap").show();
+	$("#pbild").removeClass( "active" );
+	$("#ppmap").addClass( "active" );
+	setM();
+	}
+	function setM(){
+		<% if @art.lat.nil? || @art.lng.nil? %>
+			var lat = 51.052968330168405;
+			var lng = 13.733768463134767; 
+		<%else%>
+			var lat =<%= @art.lat.to_s %>;
+			var lng =<%= @art.lng.to_s %>;
+		<%end%>
+	artShow.setMap(lat,lng,'<%= @art.name %>');
+	artShow.setMarker(lat,lng,'<%= @art.name %>');
+
+	}
+
+</script>

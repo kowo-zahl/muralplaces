@@ -1,0 +1,41 @@
+<div class="container">
+<div>
+	<h2>Kommentar Melden</h2>
+</div>
+<br>
+<br>
+
+<%= simple_form_for @comment_mail do |f| %>
+
+<%= f.input :comment_id, :as => :hidden, label: false %>
+
+<%= f.input :user_id, :as => :hidden, label: false %>
+<%= f.input :report_user_id, :as => :hidden, label: false %>
+
+<%= f.input :message, :as => :text, label: "Optionale Nachricht",label_html: {class: 'col-md-2 col-md-offset-2'},input_html: {class: 'col-md-5 NOTanEditor',rows: '10'},wrapper_html: { class: 'row' }, :placeholder => "Optional eine Nachricht anfügen." %>
+<br/>
+
+
+<br>
+<br>
+<br>
+
+<div class="text-center">
+	<div>
+		Bitte l&ouml;sen Sie folgende Gleichung:
+	</div>
+	<% number1=(rand() * 10).to_i%>
+	<% number2=(rand() * 10).to_i%>
+	<%= f.input :captcha, :as =>  :fake ,:label=>number1.to_s+" + "+number2.to_s+" = ", :placeholder => "Ergebnis"%>
+
+	<% answer=number1+number2%>
+	<%= f.input :cap,:as => :hid,:label=>false,:input_html=>{:value =>answer.to_s}%>
+
+	<br />
+	<br />
+
+	<%= f.button :submit, 'Nachricht senden', :class=> "btn btn-primary" %>
+</div>
+
+<% end %>
+</div>

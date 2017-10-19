@@ -1,0 +1,39 @@
+<h1><%= @user == @current_user ? "Ihre Accounteinstellungen" : "Nutzer editieren" %></h1>
+<br><br>
+<div class="container">
+	<div class="col-md-9 col-md-offset-2 centerfy">
+
+<%= simple_form_for(@user, :html => { :method => :put }) do |f| %>
+
+	<%= render :partial => 'user_fields', :locals => { :f => f } %><br><br>
+ 	<b>Bei einer Passwordänderung werden Sie zwangsausgeloggt. Loggen Sie sich anschließend mit Ihrem neuen Passwort ein.</b><br><br><br>
+	<p><%= f.label :password %> <i> (Felder leerlassen um keine Passwortänderung vorzunehmen)</i></p>
+	<p><%= f.password_field :password, :placeholder => "neues Passwort" %></p>
+	<br>
+	<p><%= f.label :password_confirmation %></p>
+	<p><%= f.password_field :password_confirmation, :placeholder => "neues Passwort wiederholen"%></p>
+ 	<br/>
+  	<% unless current_user!=@user %>
+ 	<p><%= f.label :current_password %> <i>(bisheriges Passwort zur Bestätigung eintragen)</i></p>
+	<p><%= f.password_field :current_password, :placeholder => "bisheriges Passwort" %></p>
+	<br>
+	Sollten Sie Ihr Passwort vergessen haben, wenden Sie sich bitte an den Administrator.
+	<br/>
+	<br/>
+ 	<%end%>
+ 	
+  <p><%= f.submit I18n.t("update", :default => "Updaten"),:class=>"btn btn-primary" %></p>
+<% end %>
+<% unless current_user.has_role? :admin %>
+<%= link_to I18n.t("back", :default => "Zurück"), root_url,:class=>"btn btn-primary" %>
+<%else%>
+<%= link_to I18n.t("back", :default => "Zurück"), users_path,:class=>"btn btn-primary" %>
+<%end%>
+<br/>
+<br/>
+<% if current_user.has_role? :admin %>
+<%= link_to "Nutzer löschen", @user, :data=> { :confirm => t('sure', :default => "Are you sure?")}, :method => :delete,:class=>"btn btn-primary" %>
+<%end%>
+</div>
+
+</div>

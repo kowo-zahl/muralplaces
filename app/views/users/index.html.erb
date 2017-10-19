@@ -1,0 +1,32 @@
+<script src="http://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<h1>Nutzer</h1><br>
+<div class="container">
+	
+	<%= link_to "Neuen Nutzer anlegen.", new_user_path,:class=>"btn btn-primary"%><br><br>
+
+	<div class="col-md-11 col-md-offset-1 centerfy">
+
+		<table class="table table-striped sortable">
+			<thead>
+				<tr>
+					<th>Email</th>
+					<th>Rechte</th>
+					<th colspan="3" class="sorttable_nosort"></th>
+				</tr>
+			</thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= "#{u.email}" %></td>
+        <td><%= "#{u.roles.collect{|r| r.name.titleize} if u.roles.count > 0}" %></td>
+
+        <td><%= link_to_if(can?(:edit, User), "Nutzer editieren", edit_user_path(u.id),:class=>"btn btn-primary") {} %></td>
+        <td><%= link_to_if(can?(:delete, u), "Nutzer löschen", u, :data=> { :confirm => t('sure', :default => "Are you sure?")}, :method => :delete,:class=>"btn btn-primary") {} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+		</div>
+	</div>
+

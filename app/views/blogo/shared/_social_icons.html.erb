@@ -1,0 +1,13 @@
+<% if Blogo.config.twitter_username %>
+  <%= link_to '',"https://twitter.com/#{Blogo.config.twitter_username}", class: 'fa fa-twitter fa-2x', target: 'twitter' %>
+<% end %>
+
+<% if Blogo.config.github_username %>
+  <%= link_to '',"https://github.com/#{Blogo.config.github_username}", class: 'github-icon', target: 'github' %>
+<% end %>
+
+<% if Blogo.config.show_rss_icon %>
+  <%= link_to '', blogo_feed_path, class: 'fa fa-rss fa-2x', target: 'rss' %>
+<% end %>
+<%= link_to '', 'https://www.facebook.com/Seqbit-820092024768493', class: 'fa fa-facebook fa-2x', target: 'rss' %>
+<%= link_to '', 'https://www.xing.com/companies/seqbit', class: 'fa fa-xing fa-2x', target: 'rss' %>

@@ -1,0 +1,327 @@
+<div class="col-md-2">
+	<%= render 'gnav' %>
+</div>
+<div class="col-md-10">
+	<%= simple_form_for(@gallery) do |f| %>
+	<ul class="tabs">
+		<li id="thumbnails">
+			<%= f.input :thumbArt, :as => :hidden %>
+			<% @arts.each do |art|%>
+				<%= image_tag art.image.thumb('20x20#').url, :id => "art_"+art.id.to_s,:class =>"thumbs",:onClick => 'setThumbUrl("'+art.image.url+'","'+art.id.to_s+'")'%>
+			<%end%>
+						<div class="form-actions">
+				<%= f.button :submit %>
+			</div>
+		</li>
+		<li id="speichern">
+			<div id="tab-content1" class="tab-content">
+				<p>
+					<strong>Titel: </strong>
+					<%= f.text_field :title %>
+
+				</p>
+
+				<p>
+					<%= f.input :show, as: :boolean, boolean_style: :inline,label: I18n.t('inGallerieanzeigen') %>
+				</p>
+			</div>
+						<div class="form-actions">
+				<%= f.button :submit %>
+			</div>
+		</li>
+		<li id="tags">
+			<div id="tab-content2" class="tab-content">
+				<p>
+					<strong>Tags: </strong>
+					<div class="field">
+						<%= f.label :tag_list, I18n.t('tagsform') %>
+						<br />
+						<%= f.text_field :tag_list %>
+					</div>
+				</p>
+
+			</div>
+						<div class="form-actions">
+				<%= f.button :submit %>
+			</div>
+		</li>
+
+		<li id="otext">
+			<input type="radio" name="tabs" id="tab3" />
+			<label for="tab3">Oberer Text:</label>
+			<div id="tab-content3" class="tab-content">
+
+				<p>
+					<strong>Oberer Text: </strong><span id="utext"><span class="pointer" onClick="newUtext()">ändern?</span>
+						<div class="well" id="utextDiv">
+							<%= @gallery.utext %>
+						</div> </span>
+					<div id="utextFormData" class="formData">
+						<%= render 'utextForm'%>
+					</div>
+
+				</p>
+			</div>
+		</li>
+
+		<li id="panel-bilder">
+			<div class="row">
+				<div class="bilder-navigation">
+					<nav  role="navigation">
+
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="#" onClick="showBilder1();return false;">alle Bilder</a>
+							</li>
+							<li>
+								<a href="#" onClick="showBilder2();return false;">nicht benutze Bilder</a>
+							</li>
+							<li>
+								<a href="#" onClick="showBilder3();return false;">schon benutze Bilder</a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<div class="row" id="bilder1">
+
+				<%= f.association :arts, collection: @arts,label_method: lambda {|p| image_tag p.getThumbUrl} , label: I18n.t('bilder'), as: :check_boxes %>
+
+			</div>
+			<div class="row" id="bilder2">
+
+				<%= f.association :arts, collection: @arts2,label_method: lambda {|p| image_tag p.getThumbUrl} , label: I18n.t('bilder'), as: :check_boxes %>
+
+			</div>
+			<div class="row" id="bilder3">
+
+				<%= f.association :arts, collection: @arts3,label_method: lambda {|p| image_tag p.getThumbUrl} , label: I18n.t('bilder'), as: :check_boxes %>
+
+			</div>
+
+			<div class="form-actions">
+				<%= f.button :submit %>
+			</div>
+			<%end%>
+		</li>
+
+		<li id="dtext">
+			<input type="radio" name="tabs" id="tab5" />
+			<label for="tab5">UText:</label>
+			<div id="tab-content5" class="tab-content">
+				<p>
+					<strong>Unterer Text: </strong><span id="dtext"><span class="pointer" onClick="newDtext()">ändern?</span>
+						<div class="well" id="dtextDiv">
+							<%= @gallery.dtext %>
+						</div></span>
+					<div id="dtextFormData" class="formData">
+						<%= render 'dtextForm'%>
+					</div>
+
+				</p>
+
+			</div>
+		</li>
+	</ul>
+
+	<br style="clear: both;" />
+
+	<%= link_to I18n.t('zeigmeineSammlungen'), galleries_path %> |
+	<%= link_to I18n.t('destroy'), @gallery, method: :delete, data: { confirm: I18n.t('sure') } %>
+
+	<div id="blindOverlay"></div>
+
+	<div class="overlay" id="picForm">
+		<div id="picFormData" class="overly-in">
+			<p class="pointer close" onClick="newPics()">
+				x
+			</p>
+		</div>
+	</div>
+	<div class="overlay" id="thumbnailForm">
+		<div id="thumbnailFormData" class="overly-in">
+			<p class="pointer close" onClick="newThumbnail()">
+				x
+			</p>
+		</div>
+	</div>
+	<div class="overlay" id="showForm">
+		<div id="showFormData" class="overly-in">
+			<%= render 'showForm'%>
+		</div>
+	</div>
+	<div class="overlay" id="picDetailForm">
+		<div id="picDetailFormData" class="overly-in">
+			<p class="pointer close" onClick="newPicDetail()">
+				x
+			</p>
+
+		</div>
+	</div>
+
+</div>
+<script>
+var showarray = new Array();
+	window.onload = function() {
+		hideall();
+		showBilder1();
+		document.getElementById("panel-bilder").style.display = "inline";
+
+		<% @arts.each do |art| %>
+		//All of the checkboxes
+		var $checkboxes<%= art.id.to_s%>= $("input[type=checkbox][id=gallery_art_ids_<%= art.id.to_s%>]");
+
+		//The event handler
+		$checkboxes<%= art.id.to_s%>.on("click", function() {
+			//Get the state of the check box you clicked
+			var checkedState = this.checked
+
+			//Make it the state of all the checkboxes
+			$checkboxes<%= art.id.to_s%>.each(function() {
+				this.checked = checkedState;
+			});
+		});
+		<%end%>
+	}
+	
+		function getShowArray(){
+				// Wir wollen alle Checkboxen haben um rauszubekommen welche Bilder gewählt worden sind
+		var elements = $('input[type=checkbox]');
+
+		for (var i=0,elength = elements.length;i < elength; i++){
+			// Nur Checkboxen die für die Bilderauswahl zuständig sind
+			if (elements[i].id.indexOf("gallery_art_ids_") > -1){
+				var eid = elements[i].id.substring(16,elements[i].id.length);
+				//Alle Thumbnails unsichtbar stellen, falls sie abgewählt worden sind
+				document.getElementById("art_"+eid).style.display = "none";
+				// Nur aktive Checkboxen
+				if (elements[i].checked){
+					//Speichern der IDs
+					showset.add(eid)
+				}
+			}
+		}
+		var c = Array.from(showset);
+		return c;
+	}
+	
+	function hideall() {
+		document.getElementById("thumbnails").style.display = "none";
+		document.getElementById("tags").style.display = "none";
+		document.getElementById("otext").style.display = "none";
+		document.getElementById("panel-bilder").style.display = "none";
+		document.getElementById("dtext").style.display = "none";
+		document.getElementById("speichern").style.display = "none";
+	}
+
+	function showThumbnail() {
+		//Verstecke alle anderen Elemente
+		hideall();
+		//Zeige nur die Thumbnailauswahl an
+		document.getElementById("thumbnails").style.display = "inline";
+		var showset = new Set();
+		// Der Nuter hatte sich Bilder ausgesucht und nur von diesen soll er sich eins als Thumbnail aussuchen
+		// Hält die Ids von allen verfügbaren Thumbnails
+
+						// Wir wollen alle Checkboxen haben um rauszubekommen welche Bilder gewählt worden sind
+		var elements = $('input[type=checkbox]');
+
+		for (var i=0,elength = elements.length;i < elength; i++){
+			// Nur Checkboxen die für die Bilderauswahl zuständig sind
+			if (elements[i].id.indexOf("gallery_art_ids_") > -1){
+				var eid = elements[i].id.substring(16,elements[i].id.length);
+				//Alle Thumbnails unsichtbar stellen, falls sie abgewählt worden sind
+				document.getElementById("art_"+eid).style.display = "none";
+				// Nur aktive Checkboxen
+				if (elements[i].checked){
+					//Speichern der IDs
+					showset.add(eid)
+				}
+			}
+		}
+
+		
+
+
+		var showarray = Array.from(showset);
+
+		
+		//Alle Thumbnailbilder sind unsichtbar. Wir aktivieren jetzt die vom Nutzer gewählten
+		
+		for ( var k=0,alength = showarray.length; k < alength; k++){
+			var ele = document.getElementById("art_"+showarray[k]);
+			ele.style.display = "inline";
+			//Wenn schon ein Thumbnail gewählt worden ist, setzen wir den Rahmen
+			ele.style.border = '0em solid black';
+			var str = ele.src.split("/");
+			var strImg = str[str.length -1].split("?");
+			//if (document.getElementById("gallery_thumbUrl").value.indexOf(strImg[0]) != -1){
+				//ele.style.border = '1em solid red';
+			//}
+		}
+
+	}
+	
+
+	
+	function setThumbUrl(url,artid){
+		
+			
+
+
+		var showarray = getShowArray();
+		console.log(showarray);
+		
+		for ( var k=0,alength = showarray.length; k < alength; k++){
+			document.getElementById("art_"+showarray[k]).style.border = '0em solid black';
+		}
+		document.getElementById("art_"+artid).style.border = '1em solid red';
+		document.getElementById("gallery_thumbArt").value = artid;
+	}
+	function showTags() {
+		hideall();
+		document.getElementById("tags").style.display = "inline";
+	}
+
+	function showOText() {
+
+		hideall();
+		document.getElementById("otext").style.display = "inline";
+	}
+
+	function showPanelBilder() {
+		hideall();
+		document.getElementById("panel-bilder").style.display = "inline";
+	}
+
+	function showDText() {
+		hideall();
+		document.getElementById("dtext").style.display = "inline";
+	}
+	function showSpeichern() {
+		hideall();
+		document.getElementById("speichern").style.display = "inline";
+	}
+	function hideAllBilder(){
+		document.getElementById("bilder1").style.display = "none";
+		document.getElementById("bilder2").style.display = "none";
+		document.getElementById("bilder3").style.display = "none";
+	}
+	function showBilder1() {
+		hideAllBilder();
+		document.getElementById("bilder1").style.display = "inline";
+	}
+
+	function showBilder2() {
+		hideAllBilder();
+		document.getElementById("bilder2").style.display = "inline";
+	}
+
+	function showBilder3() {
+		hideAllBilder();
+		document.getElementById("bilder3").style.display = "inline";
+	}
+
+</script>

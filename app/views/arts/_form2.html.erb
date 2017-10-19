@@ -1,0 +1,90 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 well">
+			<%= simple_form_for(@art) do |f| %>
+			<% if @art.errors.any? %>
+			<div id="error_explanation">
+
+				<ul>
+					<% @art.errors.full_messages.each do |message| %>
+					<li>
+						<%= message %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<div class="field">
+
+				<%= field_set_tag 'Bild(er)' do %>
+				<%= f.input :image,as: :file,input_html: { :name => 'images[]',:multiple => true },label: false,inline_label: false,hint:false %>
+				
+				<%end%>
+			</div>
+			<div id="filedrag">
+				oder Dateien hier reinziehen
+			</div>
+			<div class="art_nutzung"><input type="checkbox" name="nutzung" id="nutzung" />
+			<label class="string optional" for="art_nutzung">Akzeptieren der <%= link_to "Nutzungsbedingungen.",static_pages_nutzungsbedingungen_path %></label></div>	
+				
+			<div id="messages">
+				<p>
+				
+				</p>
+			</div>
+			<div id="hideme">
+		<!--	<div class="field">
+				<%= f.label :name %>
+				<br>
+			</br>-->	<%= f.hidden_field :name %>
+				
+		<!--	</div> -->
+			<%= f.hidden_field :uploader,:value => current_user.id %>
+
+
+			<div id="notfound"></div>
+			
+				<div class="field">
+					<%= f.label :lat %>
+					<br>
+					<%= f.text_field :lat %>
+				</div>
+				<div class="field">
+					<%= f.label :lng %>
+					<br>
+					<%= f.text_field :lng %>
+				</div>
+				<div class="field">
+					<div id="art_country">
+					</div>
+				</div>
+				<div id="changeIt"></div>
+				<div class="field">
+					<div id="art_city">
+					</div>
+				</div>
+			</div>
+			<input id="inputData" type="hidden" name="data">
+			<br/>
+			<div class="actions">
+				<%= f.submit "Bild hochladen" %>
+			</div>
+			<% end %>
+		</div>
+		<div class="col-md-6">
+			<div id="holdRight">
+				<div id="mapu2" class="showSmall schatten"></div>
+				<span id="imagediv"> </span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	var mapIt = new MapIt();
+	var pu = new PictureUpload();
+	
+	
+
+</script>

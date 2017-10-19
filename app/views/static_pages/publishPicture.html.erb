@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="col-md-10 col-md-1-offset" style="text-align: center">
+<%= simple_form_for(@gallery) do |f| %>
+	<%= f.error_notification %>
+	<h2>Bild ver&ouml;ffentlichen?</h2>
+	<div class="panel">
+	<%= image_tag @art.image.url,:style=>"width: 50%;"%>
+	</div>
+	<%= f.input :thumbUrl, :as => :hidden %>
+	<div class="form-inputs">
+		<%= f.input :show, as: :boolean, boolean_style: :inline,label: I18n.t('inGallerieanzeigen') ,:input_html => { :checked => true }  , :as => :hidden %>
+	</div>
+	<div class="field panel">
+	<!--	<%= f.label :tag_list, I18n.t('tagsform') , :as => :hidden %> -->
+	<br />
+		<%= f.input :tag_list, :as => :hidden %>
+	</div>
+	<div class="form-inputs">
+		<%= f.association :arts, selected: 1, as: :hidden %>
+	</div>
+	<div class="form-actions">
+		<%= link_to "Zurück", :back,{ :class=>"btn btn-default" } %>
+		<%= f.button :submit %>
+	</div>
+<% end %>
+</div>
+</div>

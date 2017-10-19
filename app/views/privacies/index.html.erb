@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row">
+		<% @privacies.each do |privacy| %>
+			<div class="well" id="<%= privacy.position%>">
+				<% if can? :edit, @privacies %>
+					<%= link_to "", upspr_privacy_path(privacy), method: :put,:class=>"glyphicon glyphicon-arrow-up"%>
+					<%= link_to "", downspr_privacy_path(privacy), method: :put,:class=>"glyphicon glyphicon-arrow-down" %>
+				<%end %>
+				<%= raw(privacy.text)%>
+				<% if can? :edit, @privacies %>
+					<%= link_to I18n.t('edit'), edit_privacy_path(privacy),remote: true,:class=>"btn btn-primary"  %>
+					<%= link_to I18n.t('destroy'), privacy, method: :delete, data: { confirm: 'Sind Sie sicher?' },:class=>"btn btn-primary"  %>
+					<br>
+				<%end%>
+			</div>
+		<%end%>
+		<div id="new">
+		</div>
+	</div>
+	<% if can? :edit, @privacies %>
+		<%= link_to I18n.t('neuereintrag'), new_privacy_path,remote: true,:class=>"btn btn-primary"  %>
+	<%end%>
+</div>

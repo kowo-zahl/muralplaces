@@ -1,0 +1,88 @@
+<div class="well">
+	<div class="col-xs-6">
+		<!--
+		<div class="col-xs-1">
+		Like:
+		</div>
+		<div class="col-xs-1 like" id="like"><%= @gallery.like %></div>
+		<div id="title" class="col-md-2 col-md-offset-1"></div>
+
+		<div class="clearfix"></div>
+		<div class="col-xs-1">
+		Dislike:
+		</div>
+		<div class="col-xs-1 like" id="dislike"><%= @gallery.dislike %></div>
+		<div class="clearfix"></div>
+		<div class="col-xs-1">
+		Tags:
+		</div>
+		<div class="col-xs-10" id="tags"><%= @gallery.tag_list.to_s %></div>
+		<div class="clearfix"></div>
+		-->
+	</div>
+
+	<div class="col-xs-6">
+		<div>
+			<% unless @next == nil %>
+			<%= link_to 'Nächstes',{controller: "galleries",action: "browse", id: @next, city: @city, tag: @tag}, :class => "right btn btn-default" %>
+			<%end%>
+		</div>
+		<div>
+			<% unless @prev == nil %>
+			<%= link_to '<',{controller: "galleries",action: "browse"}, id: @prev, city: @city, tag: @tag, :class => "right btn btn-default" %>
+			<%end%>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12">
+		<% if  @isUser %>
+		<%= link_to I18n.t('edit'),edit_gallery_path(@gallery)%>
+		<%else%>
+		<!--
+		Nutzer: &nbsp;<%= @gallery.user %>
+		-->
+		<%end%>
+	</div>
+</div>
+
+<div class="col-md-12 nopadding">
+	<% @gallery.arts.each_with_index do |art,index| %>
+	<div class="col-md-8 nopadding well pad" >
+		<span class="utext" style="display: none;"></span>
+		<span class="pics"><%= image_tag art.image.thumb('400x').url :style => "max-width: 400px;"%>
+			<br />
+			<%= art.created_at.strftime("%d.%m.%Y")%>&nbsp;&nbsp;</span>
+		<span class="dtext" style="display: none;"></span>
+	</div>
+
+	<div class="col-md-4">
+		<div id="map<%= index %>" class="mapb maphandy" ></div>
+
+	</div>
+	<%end%>
+</div>
+
+<br/>
+<br/>
+<br/>
+<div class="col-xs-12">
+	<div id="mapall" class="mapb mapdesktop"></div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		
+		var mapall = L.map('mapall').setView([<%= @gallery.arts.first.lat.to_s %>,<%= @gallery.arts.first.lng.to_s %>],13);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(mapall);
+
+		<% @gallery.arts.each_with_index do |art,index| %>var map<%= index %> = L.map('map<%= index %>').setView([<%= art.lat.to_s %>,<%= art.lng.to_s %>],13);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map<%= index %>
+	);
+	var marker<%= index %> = L.marker([<%= art.lat.to_s %>,<%= art.lng.to_s %>]).addTo(map<%= index %>);
+	marker<%= index %>.bindPopup('<%= image_tag art.image.url, :style => "width: 30px; height:auto;" %>').openPopup();
+	var markerall<%= index %> = L.marker([<%= art.lat.to_s %>,<%= art.lng.to_s %>]).addTo(mapall); markerall<%= index %>.bindPopup('<%= image_tag art.image.url, :style => "width: 30px; height:auto;" %>').openPopup();<%end%>});
+
+</script>
+

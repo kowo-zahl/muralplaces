@@ -1,0 +1,7 @@
+<article class="blogo-article">
+  <%= render partial: 'blogo/posts/post_header', locals: {post: @post} %>
+
+  <div class="content">
+    <%= raw @post.html_content %>
+  </div>
+</article>

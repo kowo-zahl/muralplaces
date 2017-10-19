@@ -1,0 +1,2 @@
+class Impressum < Position
+end

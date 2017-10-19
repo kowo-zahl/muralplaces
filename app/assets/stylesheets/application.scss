@@ -1,0 +1,447 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ * 
+ * 
+ */
+
+@import "leaflet";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "arts";
+@import "galleries";
+
+
+@media (min-width: 768px) {
+
+  .navbar {
+    border-radius: 0px 0px 4px 4px;
+  }
+  
+}
+
+
+
+
+.mapb{
+
+/*min-width: 500px; */ 
+min-height: 200px;
+
+}
+.pics{
+
+ width: 80%;
+img{
+padding-left: 15px;
+padding-right: 15px;
+
+}}
+.like{
+margin-left: 10px;
+text-align: right;
+
+}
+.flex-container {
+  padding: 0;
+  margin: 0;
+
+  
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+
+}
+
+
+
+.column { 
+  display: inline-flex;
+  flex-flow: row wrap;
+  padding: 3px;
+  max-height: 100%;
+  align-content: flex-start;
+
+}
+
+
+
+
+.stripe img {width:100%;}
+.stripe { overflow:hidden; }
+
+
+
+/*Gallery*/
+
+.pad{
+padding: 30px;
+text-align: center;
+}
+
+.cityEntry{
+	padding: 8px;
+	}
+.indexEntry{
+	padding: 10px;
+	margin-bottom: 15px;
+	margin-right: 10px;
+	flex: 1 5 auto;
+	text-align: center;
+	vertical-align: center;
+	}
+
+.panelm{
+	text-align: center;
+	padding: 5px;
+	img {
+		width: 100%;
+		}
+}
+
+/*-Gallery*/
+
+
+.nopadding{
+padding-left: 0px;
+padding-right: 0px;
+}
+
+.border{
+	border-radius: 5px;
+	border: 1px solid black;
+}
+
+body{
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.rot90 {
+  
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+
+}
+
+.rot180 {
+
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+
+}
+.rot270 {
+
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+
+}
+
+/* Eigenes Modal*/
+/*start*/
+/*
+.overlay {
+    background: rgba(0,0,0,0.8);
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    visibility: hidden;
+    position: fixed;
+    margin: auto;
+    top: 0px;
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    z-index: 5000;
+}
+
+*/
+#blindOverlay {
+    background: rgba(0,0,0,0.8);
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    visibility: hidden;
+    position: fixed;
+    margin: auto;
+    top: 0px;
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    z-index: 4000;
+}
+
+.overlay {
+    visibility: hidden;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    z-index: 5000;
+}
+
+
+
+
+.overlay form{
+   
+}
+
+.overlay .overly-in{
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 5%;
+  width: 50%;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+/*
+.overlay .form-inputs {
+}
+.overlay .form-inputs .input{
+}
+.overlay .form-inputs .textarea{
+  width:100%;
+}
+
+.overlay .form-actions{
+  padding: 5%;
+}
+
+.overlay label{
+  border: 1px;
+  padding: 5%;
+  width: 100%;
+}
+*/
+.overlay .finput{
+	border:none;
+	width:10%;
+	height: inherit;
+	z-index: inherit;
+	float: left;
+	margin: 5px;
+}
+.overlay .wrapperDiv{
+  margin:5px;
+}
+/*
+.overlay .fimg{
+	border:none;
+	width:85%;
+	height: inherit;
+	z-index: inherit;
+	float: right;
+	position: relative;
+}
+
+*/
+.overlay .finput{
+	border:none;
+	width:inherit;
+	height: inherit;
+	z-index: inherit;
+	position: relative;
+}
+
+.overlay div {
+     background-color: #fff;
+     text-align:center;
+     z-index: inherit;
+}
+/*
+.overlay div .close {
+     text-align:right;
+     width: 100%;
+     margin:2%;
+}
+*/
+/* IE fix for modal*/
+body {
+     height:100%;
+     margin:0;
+     padding:0;
+}
+
+/*modal end*/
+
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+
+.white{
+	background-color: white;
+	padding: 2em;
+}
+
+/* Divs verhalten sich wie Links*/
+.pointer{
+	cursor: pointer;
+	color: #337ab7;
+}
+
+.showSmall{
+	height: 250px;
+}
+
+.picSmall{
+	height: 100px;
+}
+
+#map { 
+	margin: 10px;
+	height: 400px;
+	width: 100%;
+}
+	   
+.picshow{
+	margin: 10px;
+    position: absolute;
+  bottom: 0;
+}
+
+.next{
+	margin: 10px;
+	text-align: center;
+}
+
+.preview{
+}
+
+.navbar-custom{
+	background-color: grey;
+	margin: 3px;
+}
+
+div.schatten {
+-moz-box-shadow:1px 1px 6px #a0a0a0; /* Firefox */
+-webkit-box-shadow:1px 1px 6px #a0a0a0; /* Chrome, Safari */
+-khtml-box-shadow:1px 1px 6px #a0a0a0; /* Konqueror */
+box-shadow:1px 1px 6px #a0a0a0; /* CSS3 */
+}
+
+.left{
+		float: left;
+}
+
+.right{
+	float:right;
+}
+
+//für cookiebanner
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.cookie{
+  border-style: solid;
+  border-color: black;
+  border-width: 3px; 
+  background-color: #fff;
+  padding: 10px;
+  width: 100%;
+}
+
+#mapu{
+  height: 350px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#padi{
+  padding-top: 15px;
+}
+
+#mapu2{
+  display: none;
+  
+}
+#hideme{
+  display: none;
+}
+#pmap{
+  display: none;
+}
+
+#bild{
+  padding-top: 20px;
+  text-align: center;
+}
+/*
+ * Footer Anfänger
+ */
+
+html,body {
+    height:100%;
+    width: 100%;
+}
+
+body {
+    display: table;
+}
+.bod {
+    height: auto;
+}
+
+.footer {
+    display: table-row;
+    height: 1px;
+}
+.footerright {
+  text-align: right;
+  line-height: 60px;
+
+}
+.footerleft {
+  line-height: 60px;
+}
+
+/*
+ * Footer ende
+ */
+  .maphandy{
+    display:none;
+  }
+@media (min-width: 768px) {
+
+
+  /* line 382, /home/kowo/.rvm/gems/ruby-2.3.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_navbar.scss */
+  .navbar-right {
+    float: right !important;
+    margin-right: -6px;
+  }
+  .mapdesktop{
+    display: none;
+    
+  }
+  .maphandy{
+    display:block;
+  }
+  }

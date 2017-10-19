@@ -1,0 +1,18 @@
+<%= simple_form_for(@gallery) do |f| %>
+	<%= f.error_notification %>
+	<%= f.input :thumbUrl, :as => :hidden %>
+	<div class="form-inputs">
+		<%= f.input :show, as: :boolean, boolean_style: :inline,label: I18n.t('inGallerieanzeigen') %>
+	</div>
+	<div class="field">
+		<%= f.label :tag_list, I18n.t('tagsform') %>
+	<br />
+		<%= f.text_field :tag_list %>
+	</div>
+	<div class="form-inputs">
+		<%= f.association :arts, collection: @arts,label_method: lambda {|p| image_tag p.getThumbUrl} , label: I18n.t('bilder'), as: :check_boxes %>
+	</div>
+	<div class="form-actions">
+		<%= f.button :submit %>
+	</div>
+<% end %>

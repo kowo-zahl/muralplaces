@@ -1,0 +1,6 @@
+<%= simple_form_for(@gallery) do |f| %>
+	<%= f.error_notification %>
+	<%= f.input :thumbUrl, :as => :hidden %>
+	<%= f.input :title, label: false %>
+	<%= f.button :submit %>
+<% end %>

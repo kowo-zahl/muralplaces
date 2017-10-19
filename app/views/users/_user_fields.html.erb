@@ -1,0 +1,11 @@
+<p><%= f.label :email,"Username:" %></p>
+<p><%= f.text_field :email, :placeholder => "Username" %></p>
+<p><%= f.label :email,"Email:" %></p>
+<p><%= f.text_field :email, :placeholder => "Email-Adresse" %></p>
+<br> 
+<% if can? :read, Role %>
+	<p><%= f.label :role_ids,'Rollen des Nutzers:' %></p>
+	<ul class="no-pad no-bullets">
+		<%= f.input :role_ids, :collection => Role.all, :as => :check_boxes, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline', checked: @user.role_ids %>
+	</ul>
+<% end %>

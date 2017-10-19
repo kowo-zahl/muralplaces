@@ -1,0 +1,98 @@
+<div class="container">
+<div class="col-md-offset-1">
+
+			<div class="col-md-12">
+
+			<strong>Titel: </strong>
+			<span id="title"><%= @gallery.title %></span>
+
+
+			</div>
+			<div class="col-md-12">
+				
+					<strong>Sammlung veröffentlicht?: </strong>
+					<%= @gallery.show ? "ja" : "nein" %>
+				</div>
+
+				<div class="col-md-12">
+					<strong>Tags: </strong>
+					<span id="tag"><%= raw @gallery.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span>
+
+				</div>
+	
+
+
+
+			<div class="col-md-12">
+				<p>
+					<strong>Thumbnail: </strong>
+				</p>
+	
+				<%= image_tag @gallery.thumbUrl, :style => "width: 200px;height: 100%;"%>
+
+			</div>
+			<div class="col-md-12">
+					<strong>Anzahl Bilder: </strong>
+					<%= @gallery.art_ids.count.to_s%>
+				</div>
+
+
+	<br/>
+	<br/>
+	<div class="col-md-12">
+		<p>
+			<strong>Bilder in der Sammlung: </strong>
+		</p>
+		<% unless @gallery.art_ids.nil?%>
+		<p>
+			<% @gallery.allocations.each do |gal|%>
+			<% @arts.each do |art|%>
+			<% if art.id == gal.art_id%>
+
+			<%= image_tag art.getUrl , :class => "well" %>
+
+			<%end%>
+			<%end%>
+			<%end%>
+
+		</p>
+		<%end%>
+		<% if current_user.has_role? :admin%>
+		<%= link_to I18n.t('edit'),edit_gallery_path(@gallery)%> |
+		<%end%>
+		<%= link_to I18n.t('zeigmeineSammlungen'), galleries_path %> |
+		<%= link_to I18n.t('destroy'), @gallery, method: :delete, data: { confirm: I18n.t('sure') } %>
+	</div>
+	</div>
+</div>
+
+<div id="blindOverlay"></div>
+
+<div class="overlay" id="picForm">
+	<div id="picFormData" class="overly-in">
+		<p class="pointer close" onClick="newPics()">
+			x
+		</p>
+	</div>
+</div>
+<div class="overlay" id="thumbnailForm">
+	<div id="thumbnailFormData" class="overly-in">
+		<p class="pointer close" onClick="newThumbnail()">
+			x
+		</p>
+	</div>
+</div>
+<div class="overlay" id="showForm">
+	<div id="showFormData" class="overly-in">
+		<%= render 'showForm'%>
+	</div>
+</div>
+<div class="overlay" id="picDetailForm">
+	<div id="picDetailFormData" class="overly-in">
+		<p class="pointer close" onClick="newPicDetail()">
+			x
+		</p>
+
+	</div>
+</div>
+

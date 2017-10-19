@@ -1,0 +1,36 @@
+<div class="col-sm-2">
+	<p>
+		<% unless @cities.nil? %>
+		<% @cities.each do |city| %>
+		<div class="cityEntry">
+			<%= link_to city.to_s==""?"Ohne Angabe":city, :controller => 'galleries',:action => "index", :city => city.to_s==""?"oa":city.to_s %><br />
+		</div>
+		<%end%>
+		<%end%>
+	</p>
+</div>
+	
+<div class="col-sm-10 flex-container column">
+	<% @galleries.each_with_index do |gallery,index| %>
+		<div class="indexEntry border">
+			<%= link_to (image_tag gallery.thumbUrl), controller: "galleries", action: "browse", id: gallery.id, city: @city.to_s, tag: @tag.to_s %>
+			<%if gallery.arts.count > 1%>
+				<br />
+				<span class="badge" style="text-align: right;">
+					<%= gallery.arts.count%>
+				</span>
+			<%end%>
+		</div>
+	<%end%>	
+	
+</div>
+<br />
+
+
+<div class="clearfix"></div>
+
+
+
+
+<%= will_paginate @galleries %>
+</div>

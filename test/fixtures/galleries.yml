@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+gallerie1: 
+  id: 1
+  thumbUrl: test
+  show: true
+  title: titeldergallerie
+  user: user1
+  utext: unten
+  dtext: oben
+
+

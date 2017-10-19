@@ -1,0 +1,46 @@
+
+.centernav.navbar .nav,
+.centernav.navbar .nav > li {
+  float:none;
+  display:block; // stapel unsere Menüpunkte wenn wir im Handymodus sind.
+  *display:inline; /* ie7 fix */
+  *zoom:1; /* hasLayout ie7 trigger */
+  vertical-align: middle;
+}
+
+
+//damit zentrieren wir die li in der Navigationsbar, aber nur wenn die Anzeige die richtige Größe hat
+@media (min-width: 768px) {
+.centernav.navbar .nav,
+.centernav.navbar .nav > li {
+
+ text-align:center;
+ display:inline-block;
+}
+}
+
+
+
+
+
+
+
+// für unsere Default nav einen schönen Rand
+.centernav.navbar-default {
+    border: 3px solid black;
+}
+
+//und das sie schmaller wird
+.centernav.navbar-nav > li > a {
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.centernav.navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #2492ce;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
