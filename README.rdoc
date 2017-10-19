@@ -5,6 +5,8 @@ Code von Muralplaces.com. Eine Bildhochladeseite mit Geotagging und Gallerie.
 Setup
 
 * Getestet mit  ruby-2.3.1
-* Einstellen von config/application.yml
-
+* Postgres Datenbank
+  database.yml einstellen	
+* config/application.yml
+* Muralplaces nutzt Dragonfly. Bitte bei config/initialzers/dragonfly.rb darauf achten, dass der Pfad zu imagemagick korrekt ist
 
