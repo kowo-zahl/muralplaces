@@ -4,11 +4,11 @@
 		<meta name="keywords" content="streetart,art,mural,spray,street,art,kunst,straße,straßenkunst" />
 		<meta name="description" content="This page collects street arts and murals. If you know some you can post it here." />
 		<title>muralplaces -- Graffiti und Streetart</title>
-		<%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<%= csrf_meta_tags %>
 
-		<%= javascript_include_tag 'application', async: Rails.env.production? %>
 
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" async />
 		<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js" async></script>
@@ -39,17 +39,17 @@
 			<%= alert %>
 		</p>
 		-->
-		
-		
+
+
 		<div class="container">
 			<div class="stripe">
-				<%= image_tag "header.png"%>
+		  <%= image_tag("header.png")%>
 			</div>
 			<%= render "layouts/navigation" %>
 			<%= render "layouts/modal"%>
 			<!--<div id="cookiebanner"></div> -->
 			<%= yield %>
-			
+
 		</div>
 		<%= render "layouts/fooder"%>
 	</body>

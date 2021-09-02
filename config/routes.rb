@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
     end
   end
-Blogo::Routes.mount_to(self, at: '/blog')
+#Blogo::Routes.mount_to(self, at: '/blog')
   #mount Blogo::Engine => "/blog"
   root 'galleries#index'
       patch 'allocations/:id' => 'allocations#update'

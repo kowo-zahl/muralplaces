@@ -9,21 +9,21 @@
 #  pool: 5
 #  timeout: 5000
 
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: streetartdev
-  pool: 5
-  host: localhost
-  username: 
-  password: 
-
 #development:
-#   adapter: sqlite3
-#   encoding: unicode
-#   database: development
-#   pool: 5
-#   timeout: 5000
+#  adapter: postgresql
+#  encoding: unicode
+#  database: streetartdev
+#  pool: 5
+#  host: localhost
+#  username: 
+#  password: 
+
+development:
+   adapter: sqlite3
+   encoding: unicode
+   database: development
+   pool: 5
+   timeout: 5000
 
 
 # Warning: The database defined as "test" will be erased and

@@ -2,25 +2,26 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.2'
+gem 'rails', '~>6.1'
   # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 5.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
  gem 'therubyracer', platforms: :ruby
-
+gem 'execjs' 
+  
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -39,17 +40,17 @@ gem 'cancancan'
 gem 'rolify'
 gem 'simple_form'
 gem 'rails-i18n' #active record translations
-gem 'dragonfly', '~> 1.0.12'
+gem 'dragonfly'
 
 #for contact
 gem 'mail_form'
 gem 'figaro'
 
-gem 'acts_as_votable', '~> 0.10.0'
-gem 'will_paginate', '~> 3.0.5'
+gem 'acts_as_votable'
+gem 'will_paginate'
 gem 'will-paginate-i18n'
 gem 'acts_as_commentable_with_threading'
-gem 'acts-as-taggable-on', '~> 3.4'
+gem 'acts-as-taggable-on'
 
 
 #for json formating
@@ -58,10 +59,10 @@ gem 'oj'
 
 
 #bootstrap
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass'
 
 #blog
-gem 'blogo'
+#gem 'blogo'
 
  gem 'pg',             '0.17.1'
 group :development, :test do
@@ -70,20 +71,20 @@ group :development, :test do
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   
   
   #tests
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'sqlite3'  
   gem 'capybara'
   gem 'poltergeist'
   gem 'selenium-webdriver'
-  gem "factory_girl_rails", "~> 4.0"
+  gem 'factory_bot'
 end
 group :production do
  
